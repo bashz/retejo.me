@@ -1,2 +1,2 @@
-{"_id":"1","name":"test"}
-{"_id":"2","name":"test"}
+{"_id":1,"name":"test","conDate":2016,"conBishops":null,"loc":null}
+{"_id":2,"name":"test2","conDate":2016,"conBishops":[1],"loc":null}
