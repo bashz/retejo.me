@@ -8,11 +8,23 @@ var app = express();
 var datastore = require('nedb');
 var db = new datastore({ filename: 'db', autoload: true });
 
-db.insert(new person(1, "test", 2016, null, null));
-db.insert(new person(2, "test2", 2016, [1], null));
-
 var host = "127.0.0.1";
 var port = 5555;
+
+function addBishop(parent, newBishop) {
+    if (parent != null) {
+        db.find({"name": parent}, function (e, par) {
+            newBishop.conBishops.push(par[0]._id);
+        });
+
+        db.insert(newBishop, function (err, doc) {
+            db.update({"name": parent}, { $push: {"consecrated": doc._id}});
+        });
+    } else {
+        db.insert(newBishop);
+    }
+}
+
 
 app.get('/api/name/:name', function (req, res) {
     res.set('Content-Type', 'application/json');
@@ -21,7 +33,7 @@ app.get('/api/name/:name', function (req, res) {
         res.send(JSON.stringify(result));
 
         if (err != null) {
-                return {"err": "something goofed (name)"};
+            return {"err": "something goofed (name)"};
         }
     });
 });
@@ -33,8 +45,28 @@ app.get('/api/id/:id', function (req, res) {
         res.send(JSON.stringify(result));
 
         if (err != null) {
-                return {"err": "something goofed (id)"};
+            return {"err": "something goofed (id)"};
         }
+    });
+});
+
+app.get('/api/year/:year', function (req, res) {
+    res.set('Content-Type', 'application/json');
+
+    db.find({ year: req.params.year }, function (err, result) {
+        res.send(JSON.stringify(result));
+
+        if (err != null) {
+            return {"err": "something goofed (year)"};
+        }
+    });
+});
+
+app.get('/api/con/:name', function (req, res) {
+    res.set('Content-Type', 'application/json');
+
+    db.find({ name: req.params.name }, function (err, result) {
+        res.send(JSON.stringify({ consecrated: result[0].consecrated, conBishops: result[0].conBishops }));
     });
 });
 

@@ -1,8 +1,8 @@
-function person(_id, name, conDate, conBishops, loc) {
-    this._id = _id;
+function person(name, conDate, loc) {
     this.name = name;
     this.conDate = conDate;
-    this.conBishops = conBishops;
+    this.conBishops = [];
+    this.consecrated = [];
     this.loc = loc;
 };
 
