@@ -27,6 +27,10 @@ app.get('/profile/:id', function (req, res) {
     });
 });
 
+app.get('/create', function (req, res) {
+    res.render('create', {pagename: "Create"});
+})
+
 commander.version('1.0.0')
          .option('-h, --host', 'set hostname [default: 127.0.0.1]')
          .option('-p, --port', 'set port [default: 5555]')

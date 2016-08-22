@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var person = require('./person');
+var sha512 = require('js-sha512').sha512;
 
 var datastore = require('nedb');
 var db = new datastore({ filename: 'db', autoload: true });
@@ -19,7 +20,20 @@ function addBishop(parent, newBishop) {
     }
 }
 
-// TODO: make api call where bishops can be added
+router.post('/create/:pass/:data', function (req, res) {
+        var auth = "2ebd8a256f5b5600343d1b73b9551292caf6a324cc9aeec5aa920c51818d3aeccd7d6084c17e142def5d4b1edde267a36854ce2bbbbcc2edfe229f27742d399a";
+        if (req.params.pass == auth) {
+            var parent = req.params.data.parent;
+            delete req.params.data.parent;
+
+            addBishop(parent, req.params.data);
+
+            res.send("success");
+        } else {
+            res.send("authentication error");
+        }
+
+});
 
 router.get('/name/:name', function (req, res) {
     res.set('Content-Type', 'application/json');
