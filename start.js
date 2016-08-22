@@ -2,22 +2,28 @@ var chalk = require('chalk');
 var commander = require('commander');
 var express = require('express');
 var fetch = require('node-fetch');
+var hbs = require('hbs');
 
 var api = require('./api');
 
 var app = express();
 
+// settings
 var host = "127.0.0.1";
 var port = 5555;
 
-// TODO: enable a template engine
-
 app.use('/api', api);
 
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/v');
+hbs.registerPartials(__dirname + '/v/part');
+
+// frontend routes
 app.get('/profile/:id', function (req, res) {
     fetch("http://" + host + ":" + port + "/api/id/" + req.params.id)
     .then(r => r.json()).then(json => {
-            res.send("<h1>" + json.name + "</h1>");
+            json.pagename = "Profile";
+            res.render('profile', json);
     });
 });
 
