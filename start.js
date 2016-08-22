@@ -10,6 +10,8 @@ var app = express();
 var host = "127.0.0.1";
 var port = 5555;
 
+// TODO: enable a template engine
+
 app.use('/api', api);
 
 app.get('/profile/:id', function (req, res) {
