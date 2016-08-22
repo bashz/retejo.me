@@ -37,7 +37,7 @@ router.get('/id/:id', function (req, res) {
     res.set('Content-Type', 'application/json');
 
     db.find({ _id: req.params.id }, function (err, result) {
-        res.send(JSON.stringify(result));
+        res.send(JSON.stringify(result[0]));
 
         if (err != null) {
             return {"err": "something goofed (id)"};
