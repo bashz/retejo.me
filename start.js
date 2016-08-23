@@ -18,6 +18,9 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/v');
 hbs.registerPartials(__dirname + '/v/part');
 
+app.use('/js',express.static(__dirname + '/assets/js'));
+app.use('/css',express.static(__dirname + '/assets/css'));
+
 // frontend routes
 app.get('/profile/:id', function (req, res) {
     fetch("http://" + host + ":" + port + "/api/id/" + req.params.id)

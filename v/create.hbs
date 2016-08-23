@@ -3,24 +3,21 @@
     <body>
         <div id="createcontent">
             <form id="createform">
-                Password: <input type="password" placeholder="put the password here lol">
+                Password: <input name="password" type="password" placeholder="put the password here lol">
                 <br><br>
                 Parent Name: <input type="text" name="parent"><br>
                 Name: <input type="text" name="name"><br>
                 Year of Consecration: <input type="number" max="2016" step="1" name="conDate"><br>
                 Location: <input type="text" name="loc">
-                <input type="button" value="submit" onClick="submit()">
             </form>
+            <input type="button" value="submit" onClick="submit()">
         </div>
 
-        <script type="text/javascript" src="https://cdn.rawgit.com/Caligatio/jsSHA/master/src/sha512.js"></script>
         <script type="text/javascript">
             function submit() {
-                var formArray = $("#createform").serializeArray()
-                var password = sha512(formArray.password + "bananasaregreat");
-                delete formArray.password;
-                var formData = JSON.stringify();
-                window.location = "/api/create/" + password + "/" + formData;
+                $.post("/api/create", $("#createform").serializeObject(), function(data) {
+                    $("#createcontent").append(document.createTextNode(data));
+                });
             }
         </script>
     </body>
