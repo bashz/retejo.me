@@ -5,7 +5,7 @@
             <form id="createform">
                 Password: <input name="password" type="password" placeholder="put the password here lol">
                 <br><br>
-                Parent Name: <input type="text" name="parent"><br>
+                <div id="parentname">Parent Name: <input type="text" name="parent"> <input type="button" value="add parent" onClick="addParent()"></div>
                 Name: <input type="text" name="name"><br>
                 Year of Consecration: <input type="number" max="2016" step="1" name="conDate"><br>
                 Location: <input type="text" name="loc">
@@ -18,6 +18,14 @@
                 $.post("/api/create", $("#createform").serializeObject(), function(data) {
                     $("#createcontent").append(document.createTextNode(data));
                 });
+            }
+
+            function addParent() {
+                var element = '<br>Parent Name: <input type="text" name="parent"> <input type="button" value="add parent" onClick="addParent()">';
+                var newParent = document.createElement("span");
+                newParent.innerHTML = element;
+
+                $("#parentname").append(newParent);
             }
         </script>
     </body>

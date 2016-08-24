@@ -12,7 +12,24 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 function addBishop(parent, newBishop) {
-    if (parent != "null") {
+    if (Array.isArray(parent)) {
+        newBishop.conBishops = [];
+        for (var i = 0; i < parent.length; i++) {
+            if (parent[i] != "null") {
+                db.find({"name": parent[i]}, function (e, par) {
+                    newBishop.conBishops.push(par[0]._id);
+                });
+            }
+        }
+
+        db.insert(newBishop, function (err, doc) {
+            for (var i = 0; i < parent.length; i++) {
+                if (parent[i] != null) {
+                    db.update({"name": parent}, { $push: {"consecrated": doc._id}});
+                }
+            }
+        });
+    } else if (parent != "null") {
         db.find({"name": parent}, function (e, par) {
             newBishop.conBishops = [];
             newBishop.conBishops.push(par[0]._id);
