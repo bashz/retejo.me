@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 function addBishop(parent, newBishop) {
-    if (parent != null) {
+    if (parent != "null") {
         db.find({"name": parent}, function (e, par) {
             newBishop.conBishops = [];
             newBishop.conBishops.push(par[0]._id);
