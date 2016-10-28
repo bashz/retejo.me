@@ -1,0 +1,26 @@
+{{> head}}
+
+    <body>
+        <div id="signup">
+            <form id="form">
+                Username: <input name="username" type="text" placeholder="put the username here lol">
+                <br>
+                Password: <input name="password" type="password" placeholder="put the password here lol">
+                Confirm Password: <input name="confirmpass" type="password" placeholder="confirm yo password">
+                <br>
+                Email <input name="email" type="text" placeholder="you know exactly what you gotta put here">
+                Confirm Email: <input name="confirmemail" type="text" placeholder="i shouldn't have to tell you this">
+            </form>
+            <input type="button" value="submit" onClick="submit()">
+        </div>
+
+        <script type="text/javascript">
+            function submit() {
+                $.post("/api/signup", $("#form").serializeObject(), function(data) {
+                    $("#signup").append(document.createTextNode(data));
+                });
+            }
+        </script>
+    </body>
+
+{{> foot}}

@@ -1,21 +1,21 @@
 {
-  "name": "astimeline",
+  "name": "retejo.me",
   "version": "1.0.0",
-  "description": "apostolic succession timeline and api",
+  "description": "a foss web hosting service for Esperanto speakers",
   "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vypr/astimeline.git"
+    "url": "git+https://github.com/retejo/retejo.me.git"
   },
   "author": "Elliott Pardee",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vypr/astimeline/issues"
+    "url": "https://github.com/retejo/retejo.me/issues"
   },
-  "homepage": "https://github.com/vypr/astimeline#readme",
+  "homepage": "https://retejo.me",
   "dependencies": {
     "body-parser": "^1.15.2",
     "chalk": "^1.1.3",

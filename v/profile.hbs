@@ -2,15 +2,12 @@
 
     <body>
         <div id="profilecontent">
-            <h1>{{name}}</h1>
+            <h1>{{username}}</h1>
 
             <h3>Details</h3>
 
             <ul>
-                <li>Year of Consecration: {{conDate}}</li>
-                <li>Consecrated by: {{#each conBishops}}<a href="/profile/{{this}}">{{this}}</a> {{/each}}</li>
-                <li>Consecrated: {{#each consecrated}}<a href="/profile/{{this}}">{{this}}</a> {{else}}No one{{/each}}
-                <li>Location: {{#if loc}}{{loc}}{{else}}Not Specified{{/if}}</li>
+                <li>Joined on: {{joinDate}}</li>
             </ul>
         </div>
     </body>

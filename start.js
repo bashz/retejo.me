@@ -21,14 +21,16 @@ hbs.registerPartials(__dirname + '/v/part');
 app.use('/js',express.static(__dirname + '/assets/js'));
 app.use('/css',express.static(__dirname + '/assets/css'));
 
-// frontend routes
-app.get('/profile/:id', function (req, res) {
-    fetch("http://" + host + ":" + port + "/api/id/" + req.params.id)
-    .then(r => r.json()).then(json => {
-            json.pagename = "Profile";
-            res.render('profile', json);
-    });
-});
+// frontend routes (currently commented out, for now...)
+/*
+        app.get('/profile/:id', function (req, res) {
+            fetch("http://" + host + ":" + port + "/api/id/" + req.params.id)
+            .then(r => r.json()).then(json => {
+                    json.pagename = "Profile";
+                    res.render('profile', json);
+            });
+        });
+*/
 
 app.get('/create', function (req, res) {
     res.render('create', {pagename: "Create"});
