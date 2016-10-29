@@ -12,30 +12,22 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 // backend functions
-function checkIfExists(username, email) {
+function checkIfExists(user, mail) {
     // checks the database for any existing emails or usernames
-    // returns: [boolean, "username" || "email" || "email and username" || "null"]
-    var result = [false, "null"];
+    // returns: boolean
 
-    db.find({ "username": username }, function (err, docs) {
-        if (docs.length == 1) {
-            result[0] = true;
-            result[1] = "username";
+    db.find({ username: user }, function (err, docs) {
+        if (docs.length != 0) {
+            return "username";
         }
     });
 
-    db.find({ "email": email }, function (err, docs) {
-        if (docs.length == 1) {
-            if (result[0] == true) {
-                result[1] = "email and username";
-            } else {
-                result[0] = true;
-                result[1] = "email";
-            }
+    db.find({ email: mail }, function (err, docs) {
+        console.log(docs.length);
+        if (docs.length != 0) {
+            return "email";
         }
     });
-
-    return result;
 }
 
 function isReserved(username) {
@@ -48,6 +40,8 @@ function isReserved(username) {
             return true;
         }
     }
+
+    return false;
 }
 
 function databaseInsert(username, password, email, joinDate) {
@@ -56,14 +50,15 @@ function databaseInsert(username, password, email, joinDate) {
 
     // create a json object based on the values
     var data = {"username": username, "password": password, "email": email, "joinDate": joinDate};
+    var result = true;
 
     db.insert(data, function (err, newDocument) {
         if (err != null) {
-            return false;
+            console.log(err);
+            result = false;
         }
-
-        return true;
     });
+    return result;
 }
 
 // routes
@@ -85,10 +80,10 @@ router.post('/signup', function (req, res) {
         var existenceStatus = checkIfExists(username, email);
 
         // if cases handling what happens as a result of the data;
-        if (!isReserved(username)) {
+        if (isReserved(username)) {
             res.send("this username is reserved, please contact team@retejo.me for more information");
-        } else if (existenceStatus[0]) {
-            res.send("this " + existenceStatus[1] + " already exists in our database, please contact team@retejo.me if you need to recover your account");
+        } else if (existenceStatus) {
+            res.send("this " + existenceStatus + " already exists in our database, please contact team@retejo.me if you need to recover your account");
         } else {
             if (!databaseInsert(username, password, email, joinDate)) {
                 res.send("for some reason, we failed to create your account. send this to team@retejo.me if this persists: " + joinDate.toString());
