@@ -4,14 +4,14 @@
   "description": "a foss web hosting service for Esperanto speakers",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test.js",
     "start": "nodemon start.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/retejo/retejo.me.git"
   },
-  "author": "Elliott Pardee",
+  "author": "The Retejo.me Team (and contributors)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/retejo/retejo.me/issues"
