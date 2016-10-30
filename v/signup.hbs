@@ -18,8 +18,11 @@
 
         <script type="text/javascript">
             function submit() {
+                var responseMessage = document.createElement('span');
                 $.post("/api/signup", $("#form").serializeObject(), function(data) {
-                    $("#signup").append(document.createTextNode(data));
+                    responseMessage.innerHTML = data;
+                    $("span").hide();
+                    $("#signup").append(responseMessage);
                 });
             }
         </script>
