@@ -84,9 +84,9 @@ router.post('/signup', function (req, res) {
     // escape every input, hash the password (with a random salt), and create a join date
     var salt = crypto.randomBytes(16).toString("hex");
 
-    var username = validator.escape(data.username);
-    var password = sha512(validator.escape(data.password) + salt);
-    var email = validator.normalizeEmail(validator.escape(data.email));
+    var username = validator.validate(data.username);
+    var password = sha512(validator.validate(data.password) + salt);
+    var email = validator.normalizeEmail(data.email);
     var joinDateObject = new Date();
     var joinDate = joinDateObject.getTime();
 
