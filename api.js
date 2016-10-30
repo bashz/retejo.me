@@ -86,7 +86,7 @@ router.post('/signup', function (req, res) {
 
     var username = validator.escape(data.username);
     var password = sha512(validator.escape(data.password) + salt);
-    var email = validator.normalizeEmail(data.email);
+    var email = validator.normalizeEmail(validator.escape(data.email));
     var joinDateObject = new Date();
     var joinDate = joinDateObject.getTime();
 
