@@ -4,7 +4,7 @@ var should = require('should');
 
 describe('API', function () {
   describe('#signup', function () {
-    it('Should create new user', function (done) {
+    it('Should create a new user', function (done) {
       request(app)
               .post('/api/signup')
               .set('Accept', 'text/html')
@@ -12,8 +12,8 @@ describe('API', function () {
                 username: 'user1',
                 password: 'password',
                 confirmpass: 'password',
-                email: 'user1@domain.tld',
-                confirmemail: 'user1@domain.tld'
+                email: 'user1@domain.com',
+                confirmemail: 'user1@domain.com'
               })
               .expect(200)
               .expect('Content-Type', 'text/html; charset=utf-8')
@@ -24,7 +24,7 @@ describe('API', function () {
                 done();
               });
     });
-    it('Should notify that username already exist', function (done) {
+    it('Should notify that the username already exists', function (done) {
       request(app)
               .post('/api/signup')
               .set('Accept', 'text/html')
@@ -32,19 +32,39 @@ describe('API', function () {
                 username: 'user1',
                 password: 'password',
                 confirmpass: 'password',
-                email: 'user2@domain.tld',
-                confirmemail: 'user2@domain.tld'
+                email: 'user2@domain.com',
+                confirmemail: 'user2@domain.com'
               })
               .expect(200)
               .expect('Content-Type', 'text/html; charset=utf-8')
               .end(function (err, res) {
                 if (err)
                   return done(err);
-                res.text.should.be.equal('this username already exists in our database, please contact team@retejo.me if you need to recover your account');
+                res.text.should.be.equal('this username already exists in our database, please contact support if you need to recover your account');
                 done();
               });
     });
-    it('Should notify that password and password confirmation are not the same', function (done) {
+    it('Should notify that the email already exists', function (done) {
+      request(app)
+              .post('/api/signup')
+              .set('Accept', 'text/html')
+              .send({
+                username: 'user2',
+                password: 'password',
+                confirmpass: 'password',
+                email: 'user1@domain.com',
+                confirmemail: 'user1@domain.com'
+              })
+              .expect(200)
+              .expect('Content-Type', 'text/html; charset=utf-8')
+              .end(function (err, res) {
+                if (err)
+                  return done(err);
+                res.text.should.be.equal('this email already exists in our database, please contact support if you need to recover your account');
+                done();
+              });
+    });
+    it('Should notify that the password and password confirmation are not the same', function (done) {
       request(app)
               .post('/api/signup')
               .set('Accept', 'text/html')
@@ -52,8 +72,8 @@ describe('API', function () {
                 username: 'user3',
                 password: 'passwords',
                 confirmpass: 'password',
-                email: 'user3@domain.tld',
-                confirmemail: 'user3@domain.tld'
+                email: 'user3@domain.com',
+                confirmemail: 'user3@domain.com'
               })
               .expect(200)
               .expect('Content-Type', 'text/html; charset=utf-8')
@@ -61,6 +81,26 @@ describe('API', function () {
                 if (err)
                   return done(err);
                 res.text.should.be.equal('passwords don\'t match');
+                done();
+              });
+    });
+    it('Should notify that the email and email confirmation are not the same', function (done) {
+      request(app)
+              .post('/api/signup')
+              .set('Accept', 'text/html')
+              .send({
+                username: 'user3',
+                password: 'password',
+                confirmpass: 'password',
+                email: 'user3@domain.com',
+                confirmemail: 'user@domain.com'
+              })
+              .expect(200)
+              .expect('Content-Type', 'text/html; charset=utf-8')
+              .end(function (err, res) {
+                if (err)
+                  return done(err);
+                res.text.should.be.equal('emails don\'t match');
                 done();
               });
     });
