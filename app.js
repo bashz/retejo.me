@@ -32,6 +32,6 @@ app.use('/css',express.static(__dirname + '/assets/css'));
 
 app.get('/signup', function (req, res) {
     res.render('signup', {pagename: "Sign up"});
-})
+});
 
 module.exports = app;
