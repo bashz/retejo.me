@@ -11,25 +11,6 @@ var db = new datastore({ filename: 'db', autoload: true });
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-// backend functions
-function checkIfExists(user, mail) {
-    // checks the database for any existing emails or usernames
-    // returns: boolean
-
-    db.find({ username: user }, function (err, docs) {
-        if (docs.length != 0) {
-            return "username";
-        }
-    });
-
-    db.find({ email: mail }, function (err, docs) {
-        console.log(docs.length);
-        if (docs.length != 0) {
-            return "email";
-        }
-    });
-}
-
 function isReserved(username) {
     // pretty self explanitory, checks if the username is reserved
     // returns: boolean
@@ -77,20 +58,21 @@ router.post('/signup', function (req, res) {
         var joinDate = joinDateObject.getTime();
 
         // checks the database if the email and/or the username already exists
-        var existenceStatus = checkIfExists(username, email);
-
+        db.find({$or: [{ username: username }, { email: email }]}, function (err, docs) {
         // if cases handling what happens as a result of the data;
-        if (isReserved(username)) {
-            res.send("this username is reserved, please contact team@retejo.me for more information");
-        } else if (existenceStatus) {
-            res.send("this " + existenceStatus + " already exists in our database, please contact team@retejo.me if you need to recover your account");
-        } else {
-            if (!databaseInsert(username, password, email, joinDate)) {
-                res.send("for some reason, we failed to create your account. send this to team@retejo.me if this persists: " + joinDate.toString());
-            } else {
-                res.send("account created successfully, you may now log in");
-            }
-        }
+          if (isReserved(username)) {
+              res.send("this username is reserved, please contact team@retejo.me for more information");
+          } else if (docs.length != 0) {
+              usernameOrEmail = username === docs[0].username? 'username' : 'email';
+              res.send("this " + usernameOrEmail + " already exists in our database, please contact team@retejo.me if you need to recover your account");
+          } else {
+              if (!databaseInsert(username, password, email, joinDate)) {
+                  res.send("for some reason, we failed to create your account. send this to team@retejo.me if this persists: " + joinDate.toString());
+              } else {
+                  res.send("account created successfully, you may now log in");
+              }
+          }
+        });
 });
 
 router.get('/id/:id', function (req, res) {
