@@ -100,7 +100,7 @@ router.post('/signup', function (req, res) {
             res.send("this " + usernameOrEmail + " already exists in our database, please contact support if you need to recover your account");
         } else if (username.indexOf(' ') >= 0) {
             res.send("your username cannot contain whitespace, sorry!");
-        } else if (validator.isEmail(email)) {
+        } else if (!validator.isEmail(email)) {
             res.send("please insert a valid email");
         } else {
             if (!databaseInsert(username, password, email, joinDate, salt)) {
