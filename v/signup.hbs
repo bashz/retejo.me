@@ -3,17 +3,17 @@
     <body>
         <div id="signup">
             <form id="form">
-                Username: <input name="username" type="text" placeholder="put the username here lol">
+                {{PGTXT_SIGNUP_USERNAME}} <input name="username" type="text" placeholder="{{PGTXT_SIGNUP_USERNAME_PLC}}">
                 <br><br>
-                Password: <input name="password" type="password" placeholder="put the password here lol">
+                {{PGTXT_SIGNUP_PASSWORD}} <input name="password" type="password" placeholder="{{PGTXT_SIGNUP_PASSWORD_PLC}}">
                 <br>
-                Confirm Password: <input name="confirmpass" type="password" placeholder="confirm yo password">
+                {{PGTXT_SIGNUP_CONPASSWORD}} <input name="confirmpass" type="password" placeholder="{{PGTXT_SIGNUP_CONPASSWORD_PLC}}">
                 <br><br>
-                Email <input name="email" type="text" placeholder="you know exactly what you gotta put here">
+                {{PGTXT_SIGNUP_EMAIL}} <input name="email" type="text" placeholder="{{PGTXT_SIGNUP_EMAIL_PLC}}">
                 <br>
-                Confirm Email: <input name="confirmemail" type="text" placeholder="i shouldn't have to tell you this">
+                {{PGTXT_SIGNUP_CONEMAIL}} <input name="confirmemail" type="text" placeholder="{{PGTXT_SIGNUP_CONEMAIL_PLC}}">
             </form>
-            <input type="button" value="submit" onClick="submit()">
+            <input type="button" value="{{PG_SIGNUP}}" onClick="submit()">
         </div>
 
         <script type="text/javascript">
