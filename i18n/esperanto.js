@@ -1,0 +1,43 @@
+// Page Names
+var PG_HOME                         = "Hejmo",
+    PG_LOGIN                        = "Ensaluti",
+    PG_SIGNUP                       = "Registriĝi",
+    PG_PROFILE                      = "Profilo de %s";
+
+// Page Text
+var PGTXT_HOME_GREETING             = "Saluton",
+    PGTXT_HOME_LOGOUT_MSG           = "Ĉu vi volas",
+    PGTXT_HOME_LOGOUT_BTN           = "logout?",
+    PGTXT_LOGIN_USERNAME            = "Salutnomo:",
+    PGTXT_LOGIN_USERNAME_PLC        = "Salutnomo",
+    PGTXT_LOGIN_PASSWORD            = "Pasvorto:",
+    PGTXT_LOGIN_PASSWORD_PLC        = "Pasvorto",
+    PGTXT_SIGNUP_USERNAME           = "Salutnomo:",
+    PGTXT_SIGNUP_USERNAME_PLC       = "Salutnomo",
+    PGTXT_SIGNUP_PASSWORD           = "Pasvorto:",
+    PGTXT_SIGNUP_PASSWORD_PLC       = "Pasvorto",
+    PGTXT_SIGNUP_CONPASSWORD        = "Konfirmu Pasvorton:",
+    PGTXT_SIGNUP_CONPASSWORD_PLC    = "Konfirmu Vian Pasvorton",
+    PGTXT_SIGNUP_EMAIL              = "Retpoŝtadreso:",
+    PGTXT_SIGNUP_EMAIL_PLC          = "Retpoŝtadreso",
+    PGTXT_SIGNUP_CONEMAIL           = "Konfirmu Retpoŝtadreson:",
+    PGTXT_SIGNUP_CONEMAIL_PLC       = "Konfirmu Vian Retpoŝtadreson",
+    PGTXT_PROFILE_DETAILS           = "Detaloj",
+    PGTXT_PROFILE_JOINDATE          = "Registriĝis je:";
+
+// Response Text
+var RSP_HOME_LOGOUT_SUCCESS         = "Elsalutis sukcese.",
+    RSP_HOME_LOGOUT_ERROR           = "Vi ne ensalutis.",
+    RSP_LOGIN_USERNAME_ERROR        = "Nula salutnomo, kontaktu apogaro, se vi bezonas regajni vian konton.",
+    RSP_LOGIN_PASSWORD_ERROR        = "Nula pasvorto, kontaktu apogaro, se vi bezonas regajni vian konton.",
+    RSP_LOGIN_SUCCESS               = "Ensalutis sukcese.",
+    RSP_SIGNUP_UNMATCH_PASS         = "Via pasvorto kaj konfirmita pasvorto ne kongruas.",
+    RSP_SIGNUP_UNMATCH_EMAIL        = "Via retpoŝtadreso kaj konfirmita retpoŝtadreso ne kongruas.",
+    RSP_SIGNUP_USER_RESERVED        = "Ĉi tiu salutnomo estas rezervita aŭ ne permesita, kontaktu apogaro, se vi volas pli koni.",
+    RSP_SIGNUP_USER_USED            = "Ĉi tiu salutnomo ekzistas jam, kontaktu apogaro, se vi bezonas regajni vian konton.",
+    RSP_SIGNUP_EMAIL_USED           = "Ĉi tiu retpoŝtadreso ekzistas jam, kontaktu apogaro, se vi bezonas regajni vian konton.",
+    RSP_SIGNUP_USER_NOWHTSPC        = "Vi ne povas havi spacetojn en via salutnomo, ni bedaŭras.",
+    RSP_SIGNUP_INVALID_EMAIL        = "Bonvolu uzi validan retpoŝtadreson.",
+    RSP_SIGNUP_INVALID_CAPTCHA      = "Vi ne povas registriĝi, ĝis vi kompletas la CAPTCHA.",
+    RSP_SIGNUP_SUCCESS              = "Konto kreis sukcese, vi nun povas ensaluti.",
+    RSP_SIGNUP_ERROR                = "Ial, ni ne povis krei vian konton, bonvolu kontakti apogaron, se ĉi tiu persistas, kaj enhavu ĉi tiun informon:", 
