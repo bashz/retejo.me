@@ -7,7 +7,7 @@
     "PG_PROFILE":"Perfil de %s",
 
     "PGTXT_HOME_GREETING":"Hola",
-    "PGTXT_HOME_LOGOUT_MSG":"Te gustaría",
+    "PGTXT_HOME_LOGOUT_MSG":"Se gustaría",
     "PGTXT_HOME_LOGOUT_BTN":"Cerrar sesión?",
     "PGTXT_LOGIN_USERNAME":"Nombre de usuario:",
     "PGTXT_LOGIN_USERNAME_PLC":"Nombre de usuario",
@@ -18,10 +18,10 @@
     "PGTXT_SIGNUP_PASSWORD":"Contraseña:",
     "PGTXT_SIGNUP_PASSWORD_PLC":"Contraseña",
     "PGTXT_SIGNUP_CONPASSWORD":"Confirma la contraseña:",
-    "PGTXT_SIGNUP_CONPASSWORD_PLC":"Confirma tu contraseña",
+    "PGTXT_SIGNUP_CONPASSWORD_PLC":"Confirma su contraseña",
     "PGTXT_SIGNUP_EMAIL":"Correo:",
     "PGTXT_SIGNUP_EMAIL_PLC":"Correo",
-    "PGTXT_SIGNUP_CONEMAIL":"Confirmar correo:",
+    "PGTXT_SIGNUP_CONEMAIL":"Confirma correo:",
     "PGTXT_SIGNUP_CONEMAIL_PLC":"Confirma tu correo",
     "PGTXT_PROFILE_DETAILS":"Detalles",
     "PGTXT_PROFILE_JOINDATE":"Se unió:",
@@ -38,7 +38,7 @@
     "RSP_SIGNUP_EMAIL_USED":"Este correo ya existe en nuestra base de datos, contáctate con soporte si necesitas recuperar tu cuenta.",
     "RSP_SIGNUP_USER_NOWHTSPC":"Lo sentimos, pero los nombres de usuario no pueden contener espacios.",
     "RSP_SIGNUP_INVALID_EMAIL":"Por favor utiliza un correo valido.",
-    "RSP_SIGNUP_INVALID_CAPTCHA":"No te puedes registrar hasta que realices el CAPTCHA correctamente.",
+    "RSP_SIGNUP_INVALID_CAPTCHA":"No se puedes registrar hasta que realices el CAPTCHA correctamente.",
     "RSP_SIGNUP_SUCCESS":"Cuenta creada correctamente, puedes iniciar sesión.",
     "RSP_SIGNUP_ERROR":"Por alguna razón fallamos al crear la cuenta. Si esto persiste comunicáte con soporte y agrega esta información: "
 }
