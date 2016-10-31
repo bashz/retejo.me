@@ -82,7 +82,7 @@ function databaseInsert(username, password, email, joinDate, salt) {
     return true;
 }
 
-// routes
+// login/signup routes
 router.post('/signup', function (req, res) {
     // the sign up function
     // tl;dr - user creates an account, this makes sure everything is good
@@ -162,6 +162,8 @@ router.get("/logout", function (req, res) {
     }
 });
 
+
+// routes that aren't related to any login system
 router.get("/id/:id", function (req, res) {
     // an api call for pulling the data of the user, will be used later, ignore for now
     res.set("Content-Type", "application/json");
