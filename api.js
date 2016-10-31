@@ -149,9 +149,15 @@ router.post("/login", function (req, res) {
             if (password != queryResult.password) {
                 res.send(req.session.language.RSP_LOGIN_PASSWORD_ERROR);
             } else {
+                // save the language so that way it doesn't change
+                // when regeneration happens
+                var language = req.session.language;
+
                 // regenerate to avoid session fixation
                 req.session.regenerate(function() {
                     req.session.user = queryResult;
+                    req.session.language = language;
+
                     res.send(req.session.language.RSP_LOGIN_SUCCESS);
                 });
             }

@@ -11,6 +11,7 @@ var sessionStore = require('express-nedb-session')(session);
 // use the api routes and the i18n handler
 var api = require('./api');
 var i18n = require('./i18n');
+//console.log(i18n);
 
 var app = express();
 
@@ -32,8 +33,7 @@ app.use(session({
 app.use(function(req, res, next) {
     var language = req.session.language;
 
-    if (language == {}) {
-        console.log("setting language");
+    if (language == {} || typeof language === "undefined") {
         language = req.session.language = i18n.defaultLanguage;
     }
 
