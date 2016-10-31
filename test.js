@@ -41,18 +41,6 @@ describe('API', function () {
                         done();
                 });
         });
-        it('Should logout successfully', function (done) {
-            request(app)
-                    .get('/api/logout')
-                    .expect(200)
-                    .expect('Content-Type', 'text/html; charset=utf-8')
-                    .end(function (err, res) {
-                        if (err)
-                            return done(err);
-                        res.text.should.be.equal('logged out successfully');
-                        done();
-                    });
-        });
         it('Should notify that the username already exists', function (done) {
             request(app)
                     .post('/api/signup')
