@@ -1,0 +1,22 @@
+{{> head}}
+
+    <body>
+        <div id="content">
+            hello {{name}}
+            <br>
+            would you like to <input type="button" value="logout" onClick="logout()">?
+        </div>
+
+        <script type="text/javascript">
+            function logout() {
+                var responseMessage = document.createElement('span');
+                $.get("/api/logout", function(data) {
+                    responseMessage.innerHTML = data;
+                    $("span").hide();
+                    $("#content").append(responseMessage);
+                });
+            }
+        </script>
+    </body>
+
+{{> foot}}

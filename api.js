@@ -1,14 +1,20 @@
+// Instead of creating it as an independent app,
+// we use it as an attachment to our currently existing app.
 var express = require('express');
 var router = express.Router();
-var sha512 = require('js-sha512').sha512;
+
+// This way, we're able to use the data properly as JSON.
 var bodyParser = require('body-parser');
+
+// Modules relating to user accounts
+var sha512 = require('js-sha512').sha512;
 var validator = require('validator');
 var crypto = require('crypto');
-
 var profanity = require('profanity-util');
 
-var datastore = require('nedb');
-var db = new datastore({ filename: 'db', autoload: true });
+// The main user database, not to be confused with the session database
+var dataStore = require('nedb');
+var db = new dataStore({ filename: 'db', autoload: true });
 
 // import environment variables (do not uncomment this unless the variables are set)
 /*
@@ -22,6 +28,7 @@ var db = new datastore({ filename: 'db', autoload: true });
     }
 */
 
+// Ensure that the previously mentioned module is hooked in.
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
@@ -34,9 +41,11 @@ function isReserved(username) {
                               "mod", "administrator", "support" ];
 
     // development usage only
-    if (username.includes("test") || username.includes("retejo")) {
-        return true;
-    }
+    /*
+        if (username.includes("test") || username.includes("retejo")) {
+            return true;
+        }
+    */
 
     // profanity checks
     if (profanity.check(username).length != 0) {
@@ -75,6 +84,9 @@ function databaseInsert(username, password, email, joinDate, salt) {
 
 // routes
 router.post('/signup', function (req, res) {
+    // the sign up function
+    // tl;dr - user creates an account, this makes sure everything is good
+    // and if it is, allows it and saves it to the database
     var data = req.body;
 
     // makes sure that they match, so that way people don't mess up accidentally
@@ -112,7 +124,7 @@ router.post('/signup', function (req, res) {
     });
 });
 
-router.post('/login', function (req, res) {
+router.post("/login", function (req, res) {
     var data = req.body;
 
     var username = validator.escape(data.username);
@@ -125,7 +137,11 @@ router.post('/login', function (req, res) {
             if (password != queryResult.password) {
                 res.send("invalid password. please contact support if you need to recover your account");
             } else {
-                // TODO: Create Session
+                // regenerate to avoid session fixation
+                req.session.regenerate(function() {
+                    req.session.user = queryResult;
+                    res.send("success");
+                });
             }
         } else {
             res.send("username not found");
@@ -133,9 +149,22 @@ router.post('/login', function (req, res) {
     });
 });
 
-router.get('/id/:id', function (req, res) {
+router.get("/logout", function (req, res) {
+    if (req.session.user) {
+        req.session.destroy(function() {
+            res.send("logged out successfully");
+        });
+    } else {
+        // as much as we can destroy the session, because one always exists
+        // it's not really necessary to do as it's not like there's anything
+        // to destroy other than some IDs.
+        res.send("you are not logged in");
+    }
+});
+
+router.get("/id/:id", function (req, res) {
     // an api call for pulling the data of the user, will be used later, ignore for now
-    res.set('Content-Type', 'application/json');
+    res.set("Content-Type", "application/json");
 
     db.find({ _id: req.params.id }, function (err, result) {
         res.send(JSON.stringify(result[0]));

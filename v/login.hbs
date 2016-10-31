@@ -1,0 +1,29 @@
+{{> head}}
+
+    <body>
+        <div id="login">
+            <form id="form">
+                Username: <input name="username" type="text" placeholder="put the username here lol">
+                <br><br>
+                Password: <input name="password" type="password" placeholder="put the password here lol">
+                </form>
+            <input type="button" value="submit" onClick="submit()">
+        </div>
+
+        <script type="text/javascript">
+            function submit() {
+                var responseMessage = document.createElement('span');
+                $.post("/api/login", $("#form").serializeObject(), function(data) {
+                    if (data == "success") {
+                        window.location.replace("/")
+                    } else {
+                        responseMessage.innerHTML = data;
+                        $("span").hide();
+                        $("#login").append(responseMessage);
+                    }
+                });
+            }
+        </script>
+    </body>
+
+{{> foot}}

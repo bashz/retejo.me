@@ -41,5 +41,6 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Database file
+# Database files
 db
+sessiondb
