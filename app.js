@@ -8,7 +8,9 @@ var hbs = require('hbs');
 var session = require('express-session');
 var sessionStore = require('express-nedb-session')(session);
 
+// use the api routes and the i18n handler
 var api = require('./api');
+var i18n = require('./i18n');
 
 var app = express();
 
@@ -26,6 +28,18 @@ app.use(session({
     store: new sessionStore({ filename: 'sessiondb' })
 }));
 
+// ensure that a language is set for every session
+app.use(function(req, res, next) {
+    var language = req.session.language;
+
+    if (language == {}) {
+        console.log("setting language");
+        language = req.session.language = i18n.defaultLanguage;
+    }
+
+    next();
+});
+
 app.use('/api', api); // make sure the api routes are hooked up and working at /api
 
 // ensure that handlebars is the view engine on express' end
@@ -38,26 +52,29 @@ app.use('/js',express.static(__dirname + '/assets/js'));
 app.use('/css',express.static(__dirname + '/assets/css'));
 
 // frontend routes
-
 app.get('/', function (req, res) {
-    var json = {};
+    var language = req.session.language;
+    language.PG_TITLE = language.PG_HOME;
 
     if (req.session.user) {
-        json.name = req.session.user.username;
+        language.name = req.session.user.username;
     } else {
-        json.name = req.ip;
+        language.name = req.ip;
     }
 
-    json.pagename = "home";
-    res.render('home', json);
+    res.render('home', language);
 });
 
 app.get('/login', function (req, res) {
-    res.render('login', {pagename: 'Login'});
+    var language = req.session.language;
+    language.PG_TITLE = language.PG_LOGIN;
+    res.render('login', language);
 });
 
 app.get('/signup', function (req, res) {
-    res.render('signup', {pagename: "Sign up"});
+    var language = req.session.language;
+    language.PG_TITLE = language.PG_SIGNUP;
+    res.render('signup', language);
 });
 
 module.exports = app;

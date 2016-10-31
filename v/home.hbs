@@ -2,16 +2,27 @@
 
     <body>
         <div id="content">
-            hello {{name}}
+            {{PGTXT_HOME_GREETING}} {{name}}
             <br>
-            would you like to <input type="button" value="logout" onClick="logout()">?
+            {{PGTXT_HOME_LOGOUT_MSG}} <input type="button" value="{{PGTXT_HOME_LOGOUT_BTN}}" onClick="logout()">?
+            <br>
+            Would you like to change language? <input type="button" value="yes" onClick="changeLanguage()">
         </div>
 
         <script type="text/javascript">
             function logout() {
                 var responseMessage = document.createElement('span');
                 $.get("/api/logout", function(data) {
-                    responseMessage.innerHTML = data;
+                    responseMessage.innerHTML = "<br>" + data;
+                    $("span").hide();
+                    $("#content").append(responseMessage);
+                });
+            }
+
+            function changeLanguage() {
+                var responseMessage = document.createElement('span');
+                $.post("/api/change_language", {language: "english"}, function(data) {
+                    responseMessage.innerHTML = "<br>" + data;
                     $("span").hide();
                     $("#content").append(responseMessage);
                 });
